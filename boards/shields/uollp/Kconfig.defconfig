@@ -1,25 +1,14 @@
 
-if SHIELD_UOLLP_LEFT
-
-config ZMK_SPLIT_ROLE_CENTRAL
-    default y
-
-endif
-
-
-if SHIELD_UOLLP_LEFT || SHIELD_UOLLP
-
-config ZMK_KEYBOARD_NAME
-    default "uollp"
-
-endif
-
-
 if SHIELD_UOLLP_LEFT || SHIELD_UOLLP_RIGHT
 
 config ZMK_SPLIT
     default y
-config NFCT_PINS_AS_GPIOS
+
+endif
+
+if SHIELD_UOLLP_LEFT
+
+config ZMK_SPLIT_ROLE_CENTRAL
     default y
 
 endif

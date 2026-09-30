@@ -1,3 +1,4 @@
+
 config SHIELD_UOLLP
     def_bool $(shields_list_contains,uollp)
 
