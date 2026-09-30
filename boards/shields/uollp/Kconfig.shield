@@ -1,0 +1,8 @@
+config SHIELD_UOLLP
+    def_bool $(shields_list_contains,uollp)
+
+config SHIELD_UOLLP_LEFT
+    def_bool $(shields_list_contains,uollp_left)
+
+config SHIELD_UOLLP_RIGHT
+    def_bool $(shields_list_contains,uollp_right)
