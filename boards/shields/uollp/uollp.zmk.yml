@@ -1,0 +1,8 @@
+file_format: "1"
+id: uollp
+name: uollp
+type: shield
+url: https://github.com/skubmdi/uollp
+requires: [seeeduino_xiao_ble]
+features:
+  - keys
