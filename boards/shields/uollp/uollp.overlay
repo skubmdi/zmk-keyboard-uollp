@@ -16,14 +16,21 @@
 #define KPA_Yn_X10(n) KPA_Yn_Xi5(1, n), KPA_Yn_Xi5(7, n)
 #define KPA_Yn_X12(n) KPA_Yn_Xi5(0, n), KPA(5, n), KPA_Yn_Xi5(7, n), KPA(12, n)
 
+#define MT(r, c, m) compatible = "zmk,matrix-transform"; \
+    rows = <r>; columns = <c>; map = <m>;
+#define PL(n, k, t, ...) compatible = "zmk,physical-layout"; \
+    display-name = n; kscan = <k>; transform = <t>; keys = __VA_ARGS__;
+
+#define NODE_LABEL(n, b) n: n { b }
+
 / {
 
     chosen {
         
-        zmk,kscan = &kscan0;
+        zmk,kscan = &kscan;
     };
 
-    kscan0: kscan {
+    kscan: kscan {
 
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
@@ -45,110 +52,28 @@
         ;
     };
 
-    matrix_transform20: matrix_transform20 {
+    NODE_LABEL(matrix_transform20, MT(4, 5, RC_ROWn_COL5(0) RC_ROWn_COL5(1) RC_ROWn_COL5(2) RC_ROWn_COL5(3)));
+    NODE_LABEL(matrix_transform24, MT(4, 6, RC_ROWn_COL6(0) RC_ROWn_COL6(1) RC_ROWn_COL6(2) RC_ROWn_COL6(3)));
+    NODE_LABEL(matrix_transform30, MT(5, 6, RC_ROWn_COL6(0) RC_ROWn_COL6(1) RC_ROWn_COL6(2) RC_ROWn_COL6(3) RC_ROWn_COL6(4)));
 
-        compatible = "zmk,matrix-transform";
-        rows = <4>; columns = <5>;
-        map = <RC_ROWn_COL5(0) RC_ROWn_COL5(1) RC_ROWn_COL5(2) RC_ROWn_COL5(3)>;
-    };
+    NODE_LABEL(matrix_transform40, MT(4, 10, RC_ROWn_COL10(0) RC_ROWn_COL10(1) RC_ROWn_COL10(2) RC_ROWn_COL10(3)));
+    NODE_LABEL(matrix_transform48, MT(4, 12, RC_ROWn_COL12(0) RC_ROWn_COL12(1) RC_ROWn_COL12(2) RC_ROWn_COL12(3)));
+    NODE_LABEL(matrix_transform60, MT(5, 12, RC_ROWn_COL12(0) RC_ROWn_COL12(1) RC_ROWn_COL12(2) RC_ROWn_COL12(3) RC_ROWn_COL12(4)));
 
-    matrix_transform24: matrix_transform24 {
+    NODE_LABEL(layout20, PL("20 keys", &kscan, &matrix_transform20, KPA_Yn_X5(0), KPA_Yn_X5(1), KPA_Yn_X5(2), KPA_Yn_X5(3)));
+    NODE_LABEL(layout24, PL("24 keys", &kscan, &matrix_transform24, KPA_Yn_X6(0), KPA_Yn_X6(1), KPA_Yn_X6(2), KPA_Yn_X6(3)));
+    NODE_LABEL(layout30, PL("30 keys", &kscan, &matrix_transform30, KPA_Yn_X6(0), KPA_Yn_X6(1), KPA_Yn_X6(2), KPA_Yn_X6(3), KPA_Yn_X6(4)));
 
-        compatible = "zmk,matrix-transform";
-        rows = <4>; columns = <6>;
-        map = <RC_ROWn_COL6(0) RC_ROWn_COL6(1) RC_ROWn_COL6(2) RC_ROWn_COL6(3)>;
-    };
-
-    matrix_transform30: matrix_transform30 {
-
-        compatible = "zmk,matrix-transform";
-        rows = <5>; columns = <6>;
-        map = <RC_ROWn_COL6(0) RC_ROWn_COL6(1) RC_ROWn_COL6(2) RC_ROWn_COL6(3) RC_ROWn_COL6(4)>;
-    };
-
-    matrix_transform40: matrix_transform40 {
-
-        compatible = "zmk,matrix-transform";
-        rows = <4>; columns = <10>;
-        map = <RC_ROWn_COL10(0) RC_ROWn_COL10(1) RC_ROWn_COL10(2) RC_ROWn_COL10(3)>;
-#if defined(ZMK_SPLIT) && !defined(ZMK_SPLIT_ROLE_CENTRAL)
-        col-offset = <6>;
-#endif
-    };
-
-    matrix_transform48: matrix_transform48 {
-
-        compatible = "zmk,matrix-transform";
-        rows = <4>; columns = <12>;
-        map = <RC_ROWn_COL12(0) RC_ROWn_COL12(1) RC_ROWn_COL12(2) RC_ROWn_COL12(3)>;
-#if defined(ZMK_SPLIT) && !defined(ZMK_SPLIT_ROLE_CENTRAL)
-        col-offset = <6>;
-#endif
-    };
-
-    matrix_transform60: matrix_transform60 {
-
-        compatible = "zmk,matrix-transform";
-        rows = <5>; columns = <12>;
-        map = <RC_ROWn_COL12(0) RC_ROWn_COL12(1) RC_ROWn_COL12(2) RC_ROWn_COL12(3) RC_ROWn_COL12(4)>;
-#if defined(ZMK_SPLIT) && !defined(ZMK_SPLIT_ROLE_CENTRAL)
-        col-offset = <6>;
-#endif
-    };
-
-    layout20: layout20 {
-
-        compatible = "zmk,physical-layout";
-        kscan = <&kscan0>;
-        display-name = "20 keys";
-        transform = <&matrix_transform20>;
-        keys = KPA_Yn_X5(0), KPA_Yn_X5(1), KPA_Yn_X5(2), KPA_Yn_X5(3);
-    };
-
-    layout24: layout24 {
-        
-        compatible = "zmk,physical-layout";
-        kscan = <&kscan0>;
-        display-name = "24 keys";
-        transform = <&matrix_transform24>;
-        keys = KPA_Yn_X6(0), KPA_Yn_X6(1), KPA_Yn_X6(2), KPA_Yn_X6(3)
-        ;
-    };
-
-    layout30: layout30 {
-        
-        compatible = "zmk,physical-layout";
-        kscan = <&kscan0>;
-        display-name = "30 keys";
-        transform = <&matrix_transform30>;
-        keys = KPA_Yn_X6(0), KPA_Yn_X6(1), KPA_Yn_X6(2), KPA_Yn_X6(3), KPA_Yn_X6(4)
-        ;
-    };
-
-    layout40: layout40 {
-
-        compatible = "zmk,physical-layout";
-        kscan = <&kscan0>;
-        display-name = "40 keys";
-        transform = <&matrix_transform40>;
-        keys = KPA_Yn_X10(0), KPA_Yn_X10(1), KPA_Yn_X10(2), KPA_Yn_X10(3);
-    };
-
-    layout48: layout48 {
-        
-        compatible = "zmk,physical-layout";
-        kscan = <&kscan0>;
-        display-name = "48 keys";
-        transform = <&matrix_transform48>;
-        keys = KPA_Yn_X12(0), KPA_Yn_X12(1), KPA_Yn_X12(2), KPA_Yn_X12(3);
-    };
-
-    layout60: layout60 {
-        
-        compatible = "zmk,physical-layout";
-        kscan = <&kscan0>;
-        display-name = "60 keys";
-        transform = <&matrix_transform60>;
-        keys = KPA_Yn_X12(0), KPA_Yn_X12(1), KPA_Yn_X12(2), KPA_Yn_X12(3), KPA_Yn_X12(4);
-    };
+    NODE_LABEL(layout40, PL("40 keys", &kscan, &matrix_transform40, KPA_Yn_X10(0), KPA_Yn_X10(1), KPA_Yn_X10(2), KPA_Yn_X10(3)));
+    NODE_LABEL(layout48, PL("48 keys", &kscan, &matrix_transform48, KPA_Yn_X12(0), KPA_Yn_X12(1), KPA_Yn_X12(2), KPA_Yn_X12(3)));
+    NODE_LABEL(layout60, PL("60 keys", &kscan, &matrix_transform60, KPA_Yn_X12(0), KPA_Yn_X12(1), KPA_Yn_X12(2), KPA_Yn_X12(3), KPA_Yn_X12(4)));
 };
+
+#if defined(ZMK_SPLIT) && !defined(ZMK_SPLIT_ROLE_CENTRAL)
+
+&matrix_transform40 { col-offset = <6>; };
+&matrix_transform48 { col-offset = <6>; };
+&matrix_transform60 { col-offset = <6>; };
+
+#endif
+
