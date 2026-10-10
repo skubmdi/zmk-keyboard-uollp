@@ -1,16 +1,20 @@
 #include <physical_layouts.dtsi>
 #include <dt-bindings/zmk/matrix_transform.h>
 
-#define RC_L5(r) RC(r,  1) RC(r,  2) RC(r,  3) RC(r,  4) RC(r,  5)
-#define RC_R5(r) RC(r,  7) RC(r,  8) RC(r,  9) RC(r, 10) RC(r, 11)
-#define RC_L6(r) RC(r,  0) RC_L5( r)
-#define RC_R6(r) RC(r,  6) RC_R5( r)
+#define RC_ROWn_COLi5(n, i) RC(n, (0 + i)) RC(n, (1 + i)) RC(n, (2 + i)) RC(n, (3 + i)) RC(n, (4 + i))
+#define RC_ROWn_COL5(n) RC_ROWn_COLi5(n, 1)
+#define RC_ROWn_COL6(n) RC_ROWn_COLi5(n, 0) RC(n, 5)
+#define RC_ROWn_COL10(n) RC_ROWn_COLi5(n, 1) RC_ROWn_COLi5(n, 7)
+#define RC_ROWn_COL12(n) RC_ROWn_COLi5(n, 0) RC(n, 5) RC_ROWn_COLi5(n, 6) RC(n, 11)
 
-#define KPA(x, y) <&key_physical_attrs 100 100 (x * 100) (y * 100) 0 0 0>
-#define KPA_L5(y) KPA( 1, y), KPA( 2, y), KPA( 3, y), KPA( 4, y), KPA( 5, y)
-#define KPA_R5(y) KPA( 7, y), KPA( 8, y), KPA( 9, y), KPA(10, y), KPA(11, y)
-#define KPA_L6(y) KPA( 0, y), KPA_L5( y)
-#define KPA_R6(y) KPA_R5( y), KPA(12, y)
+#define KEY_PHYSICAL_SIZE_X 100
+#define KEY_PHYSICAL_SIZE_Y 100
+#define KPA(x, y) <&key_physical_attrs KEY_PHYSICAL_SIZE_X KEY_PHYSICAL_SIZE_Y (x * KEY_PHYSICAL_SIZE_X) (y * KEY_PHYSICAL_SIZE_Y) 0 0 0>
+#define KPA_Yn_Xi5(i, n) KPA((0 + i), n), KPA((1 + i), n), KPA((2 + i), n), KPA((3 + i), n), KPA((4 + i), n)
+#define KPA_Yn_X5(n) KPA_Yn_Xi5(1, n)
+#define KPA_Yn_X6(n) KPA_Yn_Xi5(0, n), KPA(5, n)
+#define KPA_Yn_X10(n) KPA_Yn_Xi5(1, n), KPA_Yn_Xi5(7, n)
+#define KPA_Yn_X12(n) KPA_Yn_Xi5(0, n), KPA(5, n), KPA_Yn_Xi5(7, n), KPA(12, n)
 
 / {
 
@@ -45,28 +49,28 @@
 
         compatible = "zmk,matrix-transform";
         rows = <4>; columns = <5>;
-        map = <RC_L5(0) RC_L5(1) RC_L5(2) RC_L5(3)>;
+        map = <RC_ROWn_COL5(0) RC_ROWn_COL5(1) RC_ROWn_COL5(2) RC_ROWn_COL5(3)>;
     };
 
     matrix_transform24: matrix_transform24 {
 
         compatible = "zmk,matrix-transform";
         rows = <4>; columns = <6>;
-        map = <RC_L6(0) RC_L6(1) RC_L6(2) RC_L6(3)>;
+        map = <RC_ROWn_COL6(0) RC_ROWn_COL6(1) RC_ROWn_COL6(2) RC_ROWn_COL6(3)>;
     };
 
     matrix_transform30: matrix_transform30 {
 
         compatible = "zmk,matrix-transform";
         rows = <5>; columns = <6>;
-        map = <RC_L6(0) RC_L6(1) RC_L6(2) RC_L6(3) RC_L6(4)>;
+        map = <RC_ROWn_COL6(0) RC_ROWn_COL6(1) RC_ROWn_COL6(2) RC_ROWn_COL6(3) RC_ROWn_COL6(4)>;
     };
 
     matrix_transform40: matrix_transform40 {
 
         compatible = "zmk,matrix-transform";
         rows = <4>; columns = <10>;
-        map = <RC_L5(0) RC_R5(0) RC_L5(1) RC_R5(1) RC_L5(2) RC_R5(2) RC_L5(3) RC_R5(3)>;
+        map = <RC_ROWn_COL10(0) RC_ROWn_COL10(1) RC_ROWn_COL10(2) RC_ROWn_COL10(3)>;
 #if defined(ZMK_SPLIT) && !defined(ZMK_SPLIT_ROLE_CENTRAL)
         col-offset = <6>;
 #endif
@@ -76,7 +80,7 @@
 
         compatible = "zmk,matrix-transform";
         rows = <4>; columns = <12>;
-        map = <RC_L6(0) RC_R6(0) RC_L6(1) RC_R6(1) RC_L6(2) RC_R6(2) RC_L6(3) RC_R6(3)>;
+        map = <RC_ROWn_COL12(0) RC_ROWn_COL12(1) RC_ROWn_COL12(2) RC_ROWn_COL12(3)>;
 #if defined(ZMK_SPLIT) && !defined(ZMK_SPLIT_ROLE_CENTRAL)
         col-offset = <6>;
 #endif
@@ -86,7 +90,7 @@
 
         compatible = "zmk,matrix-transform";
         rows = <5>; columns = <12>;
-        map = <RC_L6(0) RC_R6(0) RC_L6(1) RC_R6(1) RC_L6(2) RC_R6(2) RC_L6(3) RC_R6(3) RC_L6(4) RC_R6(4)>;
+        map = <RC_ROWn_COL12(0) RC_ROWn_COL12(1) RC_ROWn_COL12(2) RC_ROWn_COL12(3) RC_ROWn_COL12(4)>;
 #if defined(ZMK_SPLIT) && !defined(ZMK_SPLIT_ROLE_CENTRAL)
         col-offset = <6>;
 #endif
@@ -98,8 +102,7 @@
         kscan = <&kscan0>;
         display-name = "20 keys";
         transform = <&matrix_transform20>;
-        keys = KPA_L5(0), KPA_L5(1), KPA_L5(2), KPA_L5(3)
-        ;
+        keys = KPA_Yn_X5(0), KPA_Yn_X5(1), KPA_Yn_X5(2), KPA_Yn_X5(3);
     };
 
     layout24: layout24 {
@@ -108,7 +111,7 @@
         kscan = <&kscan0>;
         display-name = "24 keys";
         transform = <&matrix_transform24>;
-        keys = KPA_L6(0), KPA_L6(1), KPA_L6(2), KPA_L6(3)
+        keys = KPA_Yn_X6(0), KPA_Yn_X6(1), KPA_Yn_X6(2), KPA_Yn_X6(3)
         ;
     };
 
@@ -118,7 +121,7 @@
         kscan = <&kscan0>;
         display-name = "30 keys";
         transform = <&matrix_transform30>;
-        keys = KPA_L6(0), KPA_L6(1), KPA_L6(2), KPA_L6(3), KPA_L6(4)
+        keys = KPA_Yn_X6(0), KPA_Yn_X6(1), KPA_Yn_X6(2), KPA_Yn_X6(3), KPA_Yn_X6(4)
         ;
     };
 
@@ -128,8 +131,7 @@
         kscan = <&kscan0>;
         display-name = "40 keys";
         transform = <&matrix_transform40>;
-        keys = KPA_L5(0), KPA_R5(0), KPA_L5(1), KPA_R5(1), KPA_L5(2), KPA_R5(2), KPA_L5(3), KPA_R5(3)
-        ;
+        keys = KPA_Yn_X10(0), KPA_Yn_X10(1), KPA_Yn_X10(2), KPA_Yn_X10(3);
     };
 
     layout48: layout48 {
@@ -138,8 +140,7 @@
         kscan = <&kscan0>;
         display-name = "48 keys";
         transform = <&matrix_transform48>;
-        keys = KPA_L6(0), KPA_R6(0), KPA_L6(1), KPA_R6(1), KPA_L6(2), KPA_R6(2), KPA_L6(3), KPA_R6(3)
-        ;
+        keys = KPA_Yn_X12(0), KPA_Yn_X12(1), KPA_Yn_X12(2), KPA_Yn_X12(3);
     };
 
     layout60: layout60 {
@@ -148,7 +149,6 @@
         kscan = <&kscan0>;
         display-name = "60 keys";
         transform = <&matrix_transform60>;
-        keys = KPA_L6(0), KPA_R6(0), KPA_L6(1), KPA_R6(1), KPA_L6(2), KPA_R6(2), KPA_L6(3), KPA_R6(3), KPA_L6(4), KPA_R6(4)
-        ;
+        keys = KPA_Yn_X12(0), KPA_Yn_X12(1), KPA_Yn_X12(2), KPA_Yn_X12(3), KPA_Yn_X12(4);
     };
 };
