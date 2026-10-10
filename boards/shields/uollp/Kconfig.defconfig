@@ -1,4 +1,11 @@
 
+if SHIELD_UOLLP || SHIELD_UOLLP_LEFT
+
+config ZMK_KEYBOARD_NAME
+    default "uollp"
+
+endif
+
 if SHIELD_UOLLP_LEFT || SHIELD_UOLLP_RIGHT
 
 config ZMK_SPLIT
