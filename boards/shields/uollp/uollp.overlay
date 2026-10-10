@@ -1,29 +1,19 @@
 #include <physical_layouts.dtsi>
 #include <dt-bindings/zmk/matrix_transform.h>
 
-#define C5_R0_L RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5)
-#define C5_R0_R RC(0,7) RC(0,8) RC(0,9) RC(0,10) RC(0,11)
-#define C5_R1_L RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,5)
-#define C5_R1_R RC(1,7) RC(1,8) RC(1,9) RC(1,10) RC(1,11)
-#define C5_R2_L RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5)
-#define C5_R2_R RC(2,7) RC(2,8) RC(2,9) RC(2,10) RC(2,11)
-#define C5_R3_L RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5)
-#define C5_R3_R RC(3,7) RC(3,8) RC(3,9) RC(3,10) RC(3,11)
-
-#define C6_R0_L RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5)
-#define C6_R0_R RC(0,6) RC(0,7) RC(0,8) RC(0,9) RC(0,10) RC(0,11)
-#define C6_R1_L RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,5)
-#define C6_R1_R RC(1,6) RC(1,7) RC(1,8) RC(1,9) RC(1,10) RC(1,11)
-#define C6_R2_L RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5)
-#define C6_R2_R RC(2,6) RC(2,7) RC(2,8) RC(2,9) RC(2,10) RC(2,11)
-#define C6_R3_L RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4) RC(3,5)
-#define C6_R3_R RC(3,6) RC(3,7) RC(3,8) RC(3,9) RC(3,10) RC(3,11)
-#define C6_R4_L RC(4,0) RC(4,1) RC(4,2) RC(4,3) RC(4,4) RC(4,5)
-#define C6_R4_R RC(4,6) RC(4,7) RC(4,8) RC(4,9) RC(4,10) RC(4,11)
+#define RC_L5(r) RC(r,  1) RC(r,  2) RC(r,  3) RC(r,  4) RC(r,  5)
+#define RC_R5(r) RC(r,  7) RC(r,  8) RC(r,  9) RC(r, 10) RC(r, 11)
+#define RC_L6(r) RC(r,  0) RC_L5( r)
+#define RC_R6(r) RC(r,  6) RC_R5( r)
 
 #define KPA(x, y) <&key_physical_attrs 100 100 (x * 100) (y * 100) 0 0 0>
+#define KPA_L5(y) KPA( 1, y), KPA( 2, y), KPA( 3, y), KPA( 4, y), KPA( 5, y)
+#define KPA_R5(y) KPA( 7, y), KPA( 8, y), KPA( 9, y), KPA(10, y), KPA(11, y)
+#define KPA_L6(y) KPA( 0, y), KPA_L5( y)
+#define KPA_R6(y) KPA_R5( y), KPA(12, y)
 
 / {
+
     chosen {
         
         zmk,kscan = &kscan0;
@@ -55,28 +45,28 @@
 
         compatible = "zmk,matrix-transform";
         rows = <4>; columns = <5>;
-        map = <C5_R0_L C5_R1_L C5_R2_L C5_R3_L>;
+        map = <RC_L5(0) RC_L5(1) RC_L5(2) RC_L5(3)>;
     };
 
     matrix_transform24: matrix_transform24 {
 
         compatible = "zmk,matrix-transform";
         rows = <4>; columns = <6>;
-        map = <C6_R0_L C6_R1_L C6_R2_L C6_R3_L>;
+        map = <RC_L6(0) RC_L6(1) RC_L6(2) RC_L6(3)>;
     };
 
     matrix_transform30: matrix_transform30 {
 
         compatible = "zmk,matrix-transform";
         rows = <5>; columns = <6>;
-        map = <C6_R0_L C6_R1_L C6_R2_L C6_R3_L C6_R4_L>;
+        map = <RC_L6(0) RC_L6(1) RC_L6(2) RC_L6(3) RC_L6(4)>;
     };
 
     matrix_transform40: matrix_transform40 {
 
         compatible = "zmk,matrix-transform";
         rows = <4>; columns = <10>;
-        map = <C5_R0_L C5_R0_R C5_R1_L C5_R1_R C5_R2_L C5_R2_R C5_R3_L C5_R3_R>;
+        map = <RC_L5(0) RC_R5(0) RC_L5(1) RC_R5(1) RC_L5(2) RC_R5(2) RC_L5(3) RC_R5(3)>;
 #if defined(ZMK_SPLIT) && !defined(ZMK_SPLIT_ROLE_CENTRAL)
         col-offset = <6>;
 #endif
@@ -86,7 +76,7 @@
 
         compatible = "zmk,matrix-transform";
         rows = <4>; columns = <12>;
-        map = <C6_R0_L C6_R0_R C6_R1_L C6_R1_R C6_R2_L C6_R2_R C6_R3_L C6_R3_R>;
+        map = <RC_L6(0) RC_R6(0) RC_L6(1) RC_R6(1) RC_L6(2) RC_R6(2) RC_L6(3) RC_R6(3)>;
 #if defined(ZMK_SPLIT) && !defined(ZMK_SPLIT_ROLE_CENTRAL)
         col-offset = <6>;
 #endif
@@ -96,7 +86,7 @@
 
         compatible = "zmk,matrix-transform";
         rows = <5>; columns = <12>;
-        map = <C6_R0_L C6_R0_R C6_R1_L C6_R1_R C6_R2_L C6_R2_R C6_R3_L C6_R3_R C6_R4_L C6_R4_R>;
+        map = <RC_L6(0) RC_R6(0) RC_L6(1) RC_R6(1) RC_L6(2) RC_R6(2) RC_L6(3) RC_R6(3) RC_L6(4) RC_R6(4)>;
 #if defined(ZMK_SPLIT) && !defined(ZMK_SPLIT_ROLE_CENTRAL)
         col-offset = <6>;
 #endif
@@ -108,10 +98,7 @@
         kscan = <&kscan0>;
         display-name = "20 keys";
         transform = <&matrix_transform20>;
-        keys = KPA(0, 0), KPA(1, 0), KPA(2, 0), KPA(3, 0), KPA(4, 0)
-             , KPA(0, 1), KPA(1, 1), KPA(2, 1), KPA(3, 1), KPA(4, 1)
-             , KPA(0, 2), KPA(1, 2), KPA(2, 2), KPA(3, 2), KPA(4, 2)
-             , KPA(0, 3), KPA(1, 3), KPA(2, 3), KPA(3, 3), KPA(4, 3)
+        keys = KPA_L5(0), KPA_L5(1), KPA_L5(2), KPA_L5(3)
         ;
     };
 
@@ -121,10 +108,7 @@
         kscan = <&kscan0>;
         display-name = "24 keys";
         transform = <&matrix_transform24>;
-        keys = KPA(0, 0), KPA(1, 0), KPA(2, 0), KPA(3, 0), KPA(4, 0), KPA(5, 0)
-             , KPA(0, 1), KPA(1, 1), KPA(2, 1), KPA(3, 1), KPA(4, 1), KPA(5, 1)
-             , KPA(0, 2), KPA(1, 2), KPA(2, 2), KPA(3, 2), KPA(4, 2), KPA(5, 2)
-             , KPA(0, 3), KPA(1, 3), KPA(2, 3), KPA(3, 3), KPA(4, 3), KPA(5, 3)
+        keys = KPA_L6(0), KPA_L6(1), KPA_L6(2), KPA_L6(3)
         ;
     };
 
@@ -134,11 +118,7 @@
         kscan = <&kscan0>;
         display-name = "30 keys";
         transform = <&matrix_transform30>;
-        keys = KPA(0, 0), KPA(1, 0), KPA(2, 0), KPA(3, 0), KPA(4, 0), KPA(5, 0)
-             , KPA(0, 1), KPA(1, 1), KPA(2, 1), KPA(3, 1), KPA(4, 1), KPA(5, 1)
-             , KPA(0, 2), KPA(1, 2), KPA(2, 2), KPA(3, 2), KPA(4, 2), KPA(5, 2)
-             , KPA(0, 3), KPA(1, 3), KPA(2, 3), KPA(3, 3), KPA(4, 3), KPA(5, 3)
-             , KPA(0, 4), KPA(1, 4), KPA(2, 4), KPA(3, 4), KPA(4, 4), KPA(5, 4)
+        keys = KPA_L6(0), KPA_L6(1), KPA_L6(2), KPA_L6(3), KPA_L6(4)
         ;
     };
 
@@ -148,10 +128,7 @@
         kscan = <&kscan0>;
         display-name = "40 keys";
         transform = <&matrix_transform40>;
-        keys = KPA(0, 0), KPA(1, 0), KPA(2, 0), KPA(3, 0), KPA(4, 0),   KPA(6, 0), KPA(7, 0), KPA(8, 0), KPA(9, 0), KPA(10, 0)
-             , KPA(0, 1), KPA(1, 1), KPA(2, 1), KPA(3, 1), KPA(4, 1),   KPA(6, 1), KPA(7, 1), KPA(8, 1), KPA(9, 1), KPA(10, 1)
-             , KPA(0, 2), KPA(1, 2), KPA(2, 2), KPA(3, 2), KPA(4, 2),   KPA(6, 2), KPA(7, 2), KPA(8, 2), KPA(9, 2), KPA(10, 2)
-             , KPA(0, 3), KPA(1, 3), KPA(2, 3), KPA(3, 3), KPA(4, 3),   KPA(6, 3), KPA(7, 3), KPA(8, 3), KPA(9, 3), KPA(10, 3)
+        keys = KPA_L5(0), KPA_R5(0), KPA_L5(1), KPA_R5(1), KPA_L5(2), KPA_R5(2), KPA_L5(3), KPA_R5(3)
         ;
     };
 
@@ -161,10 +138,7 @@
         kscan = <&kscan0>;
         display-name = "48 keys";
         transform = <&matrix_transform48>;
-        keys = KPA(0, 0), KPA(1, 0), KPA(2, 0), KPA(3, 0), KPA(4, 0), KPA(5, 0),    KPA(7, 0), KPA(8, 0), KPA(9, 0), KPA(10, 0), KPA(11, 0), KPA(12, 0)
-             , KPA(0, 1), KPA(1, 1), KPA(2, 1), KPA(3, 1), KPA(4, 1), KPA(5, 1),    KPA(7, 1), KPA(8, 1), KPA(9, 1), KPA(10, 1), KPA(11, 1), KPA(12, 1)
-             , KPA(0, 2), KPA(1, 2), KPA(2, 2), KPA(3, 2), KPA(4, 2), KPA(5, 2),    KPA(7, 2), KPA(8, 2), KPA(9, 2), KPA(10, 2), KPA(11, 2), KPA(12, 2)
-             , KPA(0, 3), KPA(1, 3), KPA(2, 3), KPA(3, 3), KPA(4, 3), KPA(5, 3),    KPA(7, 3), KPA(8, 3), KPA(9, 3), KPA(10, 3), KPA(11, 3), KPA(12, 3)
+        keys = KPA_L6(0), KPA_R6(0), KPA_L6(1), KPA_R6(1), KPA_L6(2), KPA_R6(2), KPA_L6(3), KPA_R6(3)
         ;
     };
 
@@ -174,11 +148,7 @@
         kscan = <&kscan0>;
         display-name = "60 keys";
         transform = <&matrix_transform60>;
-        keys = KPA(0, 0), KPA(1, 0), KPA(2, 0), KPA(3, 0), KPA(4, 0), KPA(5, 0),    KPA(7, 0), KPA(8, 0), KPA(9, 0), KPA(10, 0), KPA(11, 0), KPA(12, 0)
-             , KPA(0, 1), KPA(1, 1), KPA(2, 1), KPA(3, 1), KPA(4, 1), KPA(5, 1),    KPA(7, 1), KPA(8, 1), KPA(9, 1), KPA(10, 1), KPA(11, 1), KPA(12, 1)
-             , KPA(0, 2), KPA(1, 2), KPA(2, 2), KPA(3, 2), KPA(4, 2), KPA(5, 2),    KPA(7, 2), KPA(8, 2), KPA(9, 2), KPA(10, 2), KPA(11, 2), KPA(12, 2)
-             , KPA(0, 3), KPA(1, 3), KPA(2, 3), KPA(3, 3), KPA(4, 3), KPA(5, 3),    KPA(7, 3), KPA(8, 3), KPA(9, 3), KPA(10, 3), KPA(11, 3), KPA(12, 3)
-             , KPA(0, 4), KPA(1, 4), KPA(2, 4), KPA(3, 4), KPA(4, 4), KPA(5, 4),    KPA(7, 4), KPA(8, 4), KPA(9, 4), KPA(10, 4), KPA(11, 4), KPA(12, 4)
+        keys = KPA_L6(0), KPA_R6(0), KPA_L6(1), KPA_R6(1), KPA_L6(2), KPA_R6(2), KPA_L6(3), KPA_R6(3), KPA_L6(4), KPA_R6(4)
         ;
     };
 };
