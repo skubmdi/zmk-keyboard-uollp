@@ -52,28 +52,28 @@
         ;
     };
 
-    NODE_LABEL(matrix_transform20, MT(4, 5, RC_ROWn_COL5(0) RC_ROWn_COL5(1) RC_ROWn_COL5(2) RC_ROWn_COL5(3)));
-    NODE_LABEL(matrix_transform24, MT(4, 6, RC_ROWn_COL6(0) RC_ROWn_COL6(1) RC_ROWn_COL6(2) RC_ROWn_COL6(3)));
-    NODE_LABEL(matrix_transform30, MT(5, 6, RC_ROWn_COL6(0) RC_ROWn_COL6(1) RC_ROWn_COL6(2) RC_ROWn_COL6(3) RC_ROWn_COL6(4)));
+    NODE_LABEL(matrix_transform4x5x1, MT(4, 5, RC_ROWn_COL5(0) RC_ROWn_COL5(1) RC_ROWn_COL5(2) RC_ROWn_COL5(3)));
+    NODE_LABEL(matrix_transform4x6x1, MT(4, 6, RC_ROWn_COL6(0) RC_ROWn_COL6(1) RC_ROWn_COL6(2) RC_ROWn_COL6(3)));
+    NODE_LABEL(matrix_transform5x6x1, MT(5, 6, RC_ROWn_COL6(0) RC_ROWn_COL6(1) RC_ROWn_COL6(2) RC_ROWn_COL6(3) RC_ROWn_COL6(4)));
 
-    NODE_LABEL(matrix_transform40, MT(4, 10, RC_ROWn_COL10(0) RC_ROWn_COL10(1) RC_ROWn_COL10(2) RC_ROWn_COL10(3)));
-    NODE_LABEL(matrix_transform48, MT(4, 12, RC_ROWn_COL12(0) RC_ROWn_COL12(1) RC_ROWn_COL12(2) RC_ROWn_COL12(3)));
-    NODE_LABEL(matrix_transform60, MT(5, 12, RC_ROWn_COL12(0) RC_ROWn_COL12(1) RC_ROWn_COL12(2) RC_ROWn_COL12(3) RC_ROWn_COL12(4)));
+    NODE_LABEL(matrix_transform4x5x2, MT(4, 10, RC_ROWn_COL10(0) RC_ROWn_COL10(1) RC_ROWn_COL10(2) RC_ROWn_COL10(3)));
+    NODE_LABEL(matrix_transform4x6x2, MT(4, 12, RC_ROWn_COL12(0) RC_ROWn_COL12(1) RC_ROWn_COL12(2) RC_ROWn_COL12(3)));
+    NODE_LABEL(matrix_transform5x6x2, MT(5, 12, RC_ROWn_COL12(0) RC_ROWn_COL12(1) RC_ROWn_COL12(2) RC_ROWn_COL12(3) RC_ROWn_COL12(4)));
 
-    NODE_LABEL(layout20, PL("20 keys", &kscan, &matrix_transform20, KPA_Yn_X5(0), KPA_Yn_X5(1), KPA_Yn_X5(2), KPA_Yn_X5(3)));
-    NODE_LABEL(layout24, PL("24 keys", &kscan, &matrix_transform24, KPA_Yn_X6(0), KPA_Yn_X6(1), KPA_Yn_X6(2), KPA_Yn_X6(3)));
-    NODE_LABEL(layout30, PL("30 keys", &kscan, &matrix_transform30, KPA_Yn_X6(0), KPA_Yn_X6(1), KPA_Yn_X6(2), KPA_Yn_X6(3), KPA_Yn_X6(4)));
+    NODE_LABEL(layout4x5x1, PL("4x5x1", &kscan, &matrix_transform4x5x1, KPA_Yn_X5(0), KPA_Yn_X5(1), KPA_Yn_X5(2), KPA_Yn_X5(3)));
+    NODE_LABEL(layout4x6x1, PL("4x6x1", &kscan, &matrix_transform4x6x1, KPA_Yn_X6(0), KPA_Yn_X6(1), KPA_Yn_X6(2), KPA_Yn_X6(3)));
+    NODE_LABEL(layout5x6x1, PL("5x6x1", &kscan, &matrix_transform5x6x1, KPA_Yn_X6(0), KPA_Yn_X6(1), KPA_Yn_X6(2), KPA_Yn_X6(3), KPA_Yn_X6(4)));
 
-    NODE_LABEL(layout40, PL("40 keys", &kscan, &matrix_transform40, KPA_Yn_X10(0), KPA_Yn_X10(1), KPA_Yn_X10(2), KPA_Yn_X10(3)));
-    NODE_LABEL(layout48, PL("48 keys", &kscan, &matrix_transform48, KPA_Yn_X12(0), KPA_Yn_X12(1), KPA_Yn_X12(2), KPA_Yn_X12(3)));
-    NODE_LABEL(layout60, PL("60 keys", &kscan, &matrix_transform60, KPA_Yn_X12(0), KPA_Yn_X12(1), KPA_Yn_X12(2), KPA_Yn_X12(3), KPA_Yn_X12(4)));
+    NODE_LABEL(layout4x5x2, PL("4x5x2", &kscan, &matrix_transform4x5x2, KPA_Yn_X10(0), KPA_Yn_X10(1), KPA_Yn_X10(2), KPA_Yn_X10(3)));
+    NODE_LABEL(layout4x6x2, PL("4x6x2", &kscan, &matrix_transform4x6x2, KPA_Yn_X12(0), KPA_Yn_X12(1), KPA_Yn_X12(2), KPA_Yn_X12(3)));
+    NODE_LABEL(layout5x6x2, PL("5x6x2", &kscan, &matrix_transform5x6x2, KPA_Yn_X12(0), KPA_Yn_X12(1), KPA_Yn_X12(2), KPA_Yn_X12(3), KPA_Yn_X12(4)));
 };
 
 #if defined(ZMK_SPLIT) && !defined(ZMK_SPLIT_ROLE_CENTRAL)
 
-&matrix_transform40 { col-offset = <6>; };
-&matrix_transform48 { col-offset = <6>; };
-&matrix_transform60 { col-offset = <6>; };
+&matrix_transform4x5x2 { col-offset = <6>; };
+&matrix_transform4x6x2 { col-offset = <6>; };
+&matrix_transform5x6x2 { col-offset = <6>; };
 
 #endif
 
