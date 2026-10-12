@@ -1,5 +1,4 @@
 # zmk-keyboard-uollp
-## 概要
 このリポジトリは自作キーボード [skubmdi/uollp](https://github.com/skubmdi/uollp) のZMK Shield定義です。  
 ビルドやキーマップのカスタマイズを行う場合は、リポジトリ [zmk-config-uollp](https://github.com/skubmdi/zmk-config-uollp) をフォークして使用してください。
 
@@ -30,7 +29,6 @@ manifest:
 ```dts
 / {
 	chosen {
-
 		zmk,physical-layout = &layout4x5x2;
 	};
 };
