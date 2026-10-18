@@ -1,1 +1,5 @@
 #include "uollp.overlay"
+
+&matrix_transform4x5x2 { col-offset = <6>; };
+&matrix_transform4x6x2 { col-offset = <6>; };
+&matrix_transform5x6x2 { col-offset = <6>; };
