@@ -13,7 +13,7 @@ manifest:
   projects:
     - name: zmk-keyboard-uollp
       remote: skubmdi
-      revision: v0.2
+      revision: [任意のバージョン]
       import: west.yml
   self:
     path: config
